@@ -8,4 +8,5 @@ setup(
     author_email='dan@danielcardoaa.com',
     license='MIT',
     packages=['markr'],
+    scripts=['bin/markr'],
     zip_safe=False)

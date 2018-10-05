@@ -21,10 +21,12 @@ def dir_mark(foldername):
 
 def make_link(root, filename, dst_folder):
     filepath = os.path.join(root, filename)
+    original_filepath = os.path.join('..', '..', '..', filepath)
     for k, v in xattr.get_all(filepath):
         k = str(k, 'utf-8')
-        new_dir = os.path.join(dst_folder, k)
-        os.makedirs(new_dir)
+        v = str(v, 'utf-8')
+        v_dir = os.path.join(dst_folder, k, v)
+        os.makedirs(v_dir)
 
-        new_filepath = os.path.join(new_dir, filename)
-        os.symlink('../../' + filepath, new_filepath)
+        new_filepath = os.path.join(v_dir, filename)
+        os.symlink(original_filepath,  new_filepath)
