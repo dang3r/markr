@@ -2,22 +2,25 @@ import os
 
 import xattr
 
-def set_mark(filename, key, value):
+def set(filename, key, value=''):
     xattr.set(filename, key, value)
 
-def get_mark(filename):
-    attrs = xattr.get_all(filename)
-    for k, v in attrs:
-        print('{} : {}'.format(str(k, 'utf-8'),str(v, 'utf-8')))
 
-def rm_mark(filename, key):
+def get(filename):
+    attrs = xattr.get_all(filename)
+    return [ (str(k, 'utf-8'), str(v, 'utf-8')) for k,v in attrs ]
+
+
+def rm(filename, key):
     xattr.remove(filename, key)
 
-def dir_mark(foldername):
+
+def dir(foldername):
     dst_folder = 'marks'
     for root, dirs, files in os.walk(foldername, topdown=True):
         for name in files:
             make_link(root, name, dst_folder)
+
 
 def make_link(root, filename, dst_folder):
     filepath = os.path.join(root, filename)

@@ -1,1 +1,5 @@
 __pycache__/
+markr.egg-info/
+marks/
+dist/
+build/

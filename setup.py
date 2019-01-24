@@ -9,4 +9,5 @@ setup(
     license='MIT',
     packages=['markr'],
     scripts=['bin/markr'],
+    version='0.0.1',
     zip_safe=False)
