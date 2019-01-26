@@ -1,2 +1,2 @@
 pytest==3.8.2
-pyxattr==0.6.1
+xattr

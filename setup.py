@@ -15,7 +15,7 @@ setup(
     packages=['markr'],
     python_requires='>=3.4.0',
     scripts=['bin/markr'],
-    install_requires=['pyxattr'],
+    install_requires=['xattr', 'pytest'],
     long_description='\n' + open(os.path.join(here, 'README.md')).read(),
     long_description_content_type='text/markdown',
     zip_safe=False

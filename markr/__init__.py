@@ -2,17 +2,45 @@ import os
 
 import xattr
 
+from sys import platform
+
+# Xattrs are namespaced on Linux under `user`, `trusted`, `security` and `system`.
+# Mask this namespace from the user.
+# https://en.wikipedia.org/wiki/Extended_file_attributes
+
+def is_linux():
+   return platform == 'linux' or platform == 'linux2'
+
+
+def add_linux_prefix(key):
+   return 'user.' + key
+
+
+def rm_linux_prefix(key):
+   return key[5:]
+
+
 def set(filename, key, value=''):
-    xattr.set(filename, key, value)
+    if is_linux():
+        key = add_linux_prefix(key)
+    xattr.setxattr(filename, bytes(key, 'utf-8'), bytes(value, 'utf-8'))
 
 
 def get(filename):
-    attrs = xattr.get_all(filename)
-    return [ (str(k, 'utf-8'), str(v, 'utf-8')) for k,v in attrs ]
+    attrs = xattr.listxattr(filename)
+    ret = []
+    for attr in attrs:
+        val = str(xattr.getxattr(filename, attr), 'utf-8')
+        if is_linux():
+            attr = rm_linux_prefix(attr)
+        ret.append((attr, val))
+    return ret
 
 
 def rm(filename, key):
-    xattr.remove(filename, key)
+    if is_linux():
+        key = add_linux_prefix(key)
+    xattr.removexattr(filename, key)
 
 
 def dir(foldername):

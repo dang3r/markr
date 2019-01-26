@@ -1,0 +1,18 @@
+version: 2
+
+jobs:
+  build:
+    machine:
+      enabled: true 
+      image: circleci/classic:edge
+    steps:
+      - checkout
+      - run: 
+          name: "Set python version to 3.5.2"
+          command: pyenv global 3.5.2
+      - run:
+          name: "Install dependencies"
+          command: make install
+      - run: 
+          name: "Run tests"
+          command: make test

@@ -1,5 +1,7 @@
 # Markr
 
+[![CircleCI](https://circleci.com/gh/dang3r/markr.svg?style=svg)](https://circleci.com/gh/dang3r/markr)
+
 > A library and script for associating marks/labels/key-values with a given
 > file. Markr lets you perform operations on the marks for files.
 
