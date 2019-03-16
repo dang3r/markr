@@ -50,3 +50,10 @@ def test_rm(tmpdir):
 
     assert len(markr.get(f_name)) == 0
 
+
+def test_plist_key(request):
+    attrs = markr.get(request.fspath.dirname + '/samples/18-lamport.pptx')
+    assert len(attrs) == 1
+    assert attrs[0] == (
+        'com.apple.metadata:kMDItemWhereFroms',
+        "['https://www.cs.cornell.edu/courses/cs6410/2013fa/slides/18-lamport.pptx', 'https://www.google.com/']")
