@@ -1,5 +1,7 @@
-import markr
 import os
+import plistlib
+
+import markr
 
 def test_set_get(tmpdir):
     f = tmpdir.join('foo.txt')
@@ -51,8 +53,14 @@ def test_rm(tmpdir):
     assert len(markr.get(f_name)) == 0
 
 
-def test_plist_key(request):
-    attrs = markr.get(request.fspath.dirname + '/samples/18-lamport.pptx')
+def test_plist_key(tmpdir):
+    f = tmpdir.join('foo.txt')
+    f.write('l')
+    markr.setb(
+        str(f), 
+        'com.apple.metadata:kMDItemWhereFroms',
+        b'bplist00\xa2\x01\x02_\x10Ghttps://www.cs.cornell.edu/courses/cs6410/2013fa/slides/18-lamport.pptx_\x10\x17https://www.google.com/\x08\x0bU\x00\x00\x00\x00\x00\x00\x01\x01\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00o')
+    attrs = markr.get(str(f))
     assert len(attrs) == 1
     assert attrs[0] == (
         'com.apple.metadata:kMDItemWhereFroms',

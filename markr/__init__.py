@@ -26,6 +26,11 @@ def set(filename: str, key: str, value: str = ''):
         key = add_linux_prefix(key)
     xattr.setxattr(filename, bytes(key, 'utf-8'), bytes(value, 'utf-8'))
 
+def setb(filename: str, key:str, value: bytes):
+    if is_linux():
+        key = add_linux_prefix(key)
+    xattr.setxattr(filename, bytes(key, 'utf-8'), value)
+
 
 decoders = [
     lambda b: b.decode('utf-8'),
